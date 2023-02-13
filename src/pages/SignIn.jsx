@@ -49,14 +49,14 @@ export default function SignIn() {
               />
 
               {showPassword ? (
-                <AiFillEye
+                <AiFillEyeInvisible
                   className="absolute right-3 top-3 text-xl cursor-pointer"
                   onClick={() => {
                     setShowPassword((prevState) => !prevState);
                   }}
                 />
               ) : (
-                <AiFillEyeInvisible
+                <AiFillEye
                   className="absolute right-3 top-3 text-xl cursor-pointer"
                   onClick={() => {
                     setShowPassword((prevState) => !prevState);
