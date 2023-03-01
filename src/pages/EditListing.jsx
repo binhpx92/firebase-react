@@ -63,6 +63,7 @@ export default function CreateListing() {
 
   const params = useParams();
   useEffect(() => {
+    // check listing belong personal or not
     if (listing && listing.userRef !== auth.currentUser.uid) {
       toast.error("You can not edit listing");
       navigate("/");
@@ -84,7 +85,6 @@ export default function CreateListing() {
     }
     fetchListing();
   }, [navigate, params.listingId]);
-  // check listing belong personal or not
   function onChange(e) {
     let boolean = null;
     if (e.target.value === "true") {
