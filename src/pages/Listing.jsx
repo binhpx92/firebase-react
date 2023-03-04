@@ -19,12 +19,16 @@ import {
   FaParking,
   FaChair,
 } from "react-icons/fa";
+import { getAuth } from "firebase/auth";
+import Contact from "../components/Contact";
 
 export default function Listing() {
+  const auth = getAuth();
   const params = useParams();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
+  const [contactLandlord, setContactLandlord] = useState(false);
   SwiperCore.use([Autoplay, Navigation, Pagination]);
 
   useEffect(() => {
@@ -83,7 +87,7 @@ export default function Listing() {
         </p>
       )}
       <div className="flex flex-col md:flex-row max-w-6xl lg:mx-auto m-4 p-4 rounded-lg shadow-lg bg-white space-x-5">
-        <div className=" w-full h-[200px] lg:[400px]">
+        <div className=" w-full ">
           <p className="text-2xl font-bold mb-3 text-blue-900">
             {listing.name} - ${" "}
             {listing.offer
@@ -112,7 +116,7 @@ export default function Listing() {
             <span className="font-semibold">Description </span>-{" "}
             {listing.description}
           </p>
-          <ul className="flex space-x-4 items-center text-sm sm:space-x-10 font-semibold">
+          <ul className="flex space-x-4 items-center text-sm sm:space-x-10 font-semibold mb-6">
             <li className="flex">
               <FaBed className="text-lg font-semibold mr-1 items-center whitespace-nowrap" />
               {+listing.bedrooms > 1
@@ -134,6 +138,19 @@ export default function Listing() {
               {listing.furnished ? `Furnished` : "No Furnished"}
             </li>
           </ul>
+          {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (
+            <div className="mt-6 ">
+              <button
+                onClick={() => setContactLandlord(true)}
+                className="px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg w-full text-center transition duration-150 ease-in-out "
+              >
+                Contact Landlord
+              </button>
+            </div>
+          )}
+          {contactLandlord && (
+            <Contact userRef={listing.userRef} listing={listing} />
+          )}
         </div>
         <div className="bg-blue-300 w-full h-[200px] lg:[400px] z-10 overflow-x-hidden"></div>
       </div>
