@@ -156,7 +156,7 @@ export default function Listing() {
         <div className=" w-full h-[400px]  z-10 overflow-x-hidden">
           <MapContainer
             center={[listing.geolocation.lat, listing.geolocation.lng]}
-            zoom={1}
+            zoom={2}
             scrollWheelZoom={false}
             style={{ height: "100%", width: "100%" }}
           >
@@ -167,9 +167,7 @@ export default function Listing() {
             <Marker
               position={[listing.geolocation.lat, listing.geolocation.lng]}
             >
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
+              <Popup>{listing.address}</Popup>
             </Marker>
           </MapContainer>
         </div>
